@@ -1,62 +1,94 @@
+'''
+this is a minimal implementation
+LinkedList.append() is currently an operation of O(n) time complexity
+it can made to be of O(1) time complexity by adding a "tail" attribute
+to the LinkedList
+'''
+
+
 class LLNode:
     def __init__(self, data, aft):
         self.data = data
         self.aft = aft
-        
-        
+
+    def insert_after(self, data):
+        self.aft = LLNode(data, self.aft)
+
+    def remove_after(self):
+        self.aft = self.aft.aft
+
+
 class LinkedList:
-    def __init__(self, data):
-        self.head = LLNode(data, None)
+    def __init__(self):
+        self.head = None
+
+    def is_empty(self):
+        return self.head is None
 
     def traverse(self, func):
+        if self.is_empty():
+            return None
+
         cursor = self.head
-        while cursor:
+        while cursor.aft:
             func(cursor.data)
             cursor = cursor.aft
 
-    def insert_head(self, data):
-        self.head = LLNode(data, self.head)
-        
-    def insert_after(self):
-        node.aft = LLNode(data, node.aft)
+        func(cursor.data)
+        return cursor
 
-    def insert_tail(self, data):
-        tail = self.get_tail()
-        tail.insert_after(data)
+    def prepend(self, data):
+        self.head = LLNode(data, self.head)
+
+    def append(self, data):
+        if self.is_empty():
+            self.prepend(data)
+        else:
+            tail = self.get_tail()
+            tail.insert_after(data)
 
     def remove_head(self):
         self.head = self.head.aft  # older head is garbage collected
 
-    def remove_after(self, node):
-        node.aft = node.aft.aft
-
     def get_tail(self):
-        if self.head is None:
-            return None
-        cursor = self.head
-        while cursor.aft:  # !!!
-            cursor = cursor.aft
-        return cursor
+        return self.traverse(lambda node: None)  # no - op lambda
 
-    def append(self, ll2):
+    def concatenate(self, ll2):
+        ll2 = ll2.copy()
         tail = self.get_tail()
         tail.aft = ll2.head
 
+    def copy(self):
+        ll = LinkedList()
+        self.traverse(lambda data: ll.append(data))
+        return ll
+
+    def print_data(self):
+        self.traverse(print)
+
 
 if __name__ == "__main__":
-    ll = LinkedList(10)
-    ll2 = LinkedList("a")
-    ll.append(ll2)
-    ll.traverse(print)  # 10 a
+    ll = LinkedList()
+    ll2 = LinkedList()
+    ll.append(10)
+    ll2.append("a")
+    ll.concatenate(ll2)
+    ll.print_data()  # 10 a
     print("##########")
-    ll.insert_tail("b")
-    ll.insert_tail("b")
-    ll.insert_tail(7.77)
-    ll.insert_head(11)
-    ll.traverse(print)  # 11 10 a b b 7.77
+
+    ll.append("b")
+    ll.append("b")
+    ll.append(7.77)
+    ll.prepend(11)
+    ll.print_data()  # 11 10 a b b 7.77
     print("##########")
+
     for i in range(4):
         ll.remove_head()
-    ll.traverse(print)  # b 7.77
+    ll.print_data()  # b 7.77
+    print("##########")
 
-    # unsafe -> ll.append(ll) causes infinite recursion
+    ll.concatenate(ll)
+    ll.concatenate(ll)
+    ll.prepend("samba")
+    ll.print_data()  # samba b 7.77 b 7.77 b 7.77 b 7.77
