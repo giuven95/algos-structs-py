@@ -50,6 +50,21 @@ class LinkedList:
     def remove_head(self):
         self.head = self.head.aft  # older head is garbage collected
 
+    def get_at(self, index):
+        i = 0
+        cursor = self.head
+        while cursor and i < index:
+            cursor = cursor.aft
+            i += 1
+        return cursor
+        
+    def insert_at(self, index, data):
+        if index <= 0:
+            self.prepend(data)
+        else:
+            node = self.get_at(index - 1)
+            node.insert_after(data)
+        
     def get_tail(self):
         return self.traverse(lambda node: None)  # no - op lambda
 
