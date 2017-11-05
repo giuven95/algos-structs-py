@@ -1,8 +1,8 @@
 '''
 this is a minimal implementation
 LinkedList.append() is currently an operation of O(n) time complexity
-it can made to be of O(1) time complexity by adding a "tail" attribute
-to the LinkedList
+it can be made to have O(1) time complexity by adding
+an attribute "self.tail" to the LinkedList class
 '''
 
 
