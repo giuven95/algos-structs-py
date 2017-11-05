@@ -2,14 +2,8 @@ class LLNode:
     def __init__(self, data, aft):
         self.data = data
         self.aft = aft
-
-    def insert_after(self, data):
-        self.aft = LLNode(data, self.aft)
-
-    def remove_after(self):
-        self.aft = self.aft.aft
-
-
+        
+        
 class LinkedList:
     def __init__(self, data):
         self.head = LLNode(data, None)
@@ -22,6 +16,9 @@ class LinkedList:
 
     def insert_head(self, data):
         self.head = LLNode(data, self.head)
+        
+    def insert_after(self):
+        node.aft = LLNode(data, node.aft)
 
     def insert_tail(self, data):
         tail = self.get_tail()
@@ -29,6 +26,9 @@ class LinkedList:
 
     def remove_head(self):
         self.head = self.head.aft  # older head is garbage collected
+
+    def remove_after(self, node):
+        node.aft = node.aft.aft
 
     def get_tail(self):
         if self.head is None:
