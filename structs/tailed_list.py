@@ -1,20 +1,14 @@
+from linked_list import LLNode
 '''
-This is a minimal implementation.
-LinkedList.append() is currently an operation of O(n) time complexity;
-the operation can be made to have O(1) time complexity by adding
-an attribute "self.tail" to the LinkedList class
+This version of LinkedList boasts faster insertion at the end of the
+list.
 '''
 
 
-class LLNode:
-    def __init__(self, data, link):
-        self.data = data
-        self.link = link
-        
-
-class LinkedList:
+class TailedList:
     def __init__(self):
         self.head = None
+        self.tail = None
 
     def is_empty(self):
         return self.head is None
@@ -27,22 +21,19 @@ class LinkedList:
 
     def prepend(self, data):
         self.head = LLNode(data, self.head)
+        if self.head.link is None:
+            self.tail = self.head
 
     def append(self, data):
         if self.is_empty():
             self.prepend(data)
         else:
-            tail = self.get_tail()
-            self.insert_after(tail, data)
+            self.insert_after(self.tail, data)
 
     def remove_head(self):
-        self.head = self.head.link  # older head is garbage collected
-
-    def get_tail(self):
-        cursor = self.head
-        while cursor.link:
-            cursor = cursor.link
-        return cursor
+        self.head = self.head.link
+        if self.head is None:
+            self.tail = None
 
     def get_at(self, index):
         if self.is_empty() or index < 0:
@@ -57,20 +48,24 @@ class LinkedList:
 
     def insert_after(self, node, data):
         node.link = LLNode(data, node.link)
-    
+        if node.link.link is None:
+            self.tail = node.link
+
     def remove_after(self, node, data):
         if node.link:
             node.link = node.link.link
+            if node.link is None:
+                self.tail = node
         else:
             raise IndexError("Nothing to remove!")
-    
+
     def concatenate(self, ll2):
         ll2 = ll2.copy()
-        tail = self.get_tail()
-        tail.link = ll2.head
+        self.tail.link = ll2.head
+        self.tail = ll2.tail
 
     def copy(self):
-        ll = LinkedList()
+        ll = TailedList()
         self.traverse(lambda data: ll.append(data))
         return ll
 
@@ -79,8 +74,8 @@ class LinkedList:
 
 
 if __name__ == "__main__":
-    ll = LinkedList()
-    ll2 = LinkedList()
+    ll = TailedList()
+    ll2 = TailedList()
     ll.append(10)
     ll2.append("a")
     ll.concatenate(ll2)
