@@ -1,6 +1,3 @@
-from linked_list import LLNode
-
-
 class DLLNode:
     def __init__(self, data, prev, link):
         self.data = data
