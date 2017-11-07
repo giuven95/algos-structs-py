@@ -143,4 +143,8 @@ if __name__ == "__main__":
         ll.remove_before(node)
     ll.insert_before(node, "AAA")
     ll.insert_after(node, "CCC")
-    ll.print_data()  # AAA b CCC 7.77 b 7.77 b 7.77
+    ll.prepend("head")
+    ll.append("tail")
+    ll.print_data()  # head AAA b CCC 7.77 b 7.77 b 7.77 tail
+    print("##########")
+
