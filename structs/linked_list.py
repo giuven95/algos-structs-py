@@ -10,7 +10,7 @@ class LLNode:
     def __init__(self, data, link):
         self.data = data
         self.link = link
-        
+
 
 class LinkedList:
     def __init__(self):
@@ -57,13 +57,13 @@ class LinkedList:
 
     def insert_after(self, node, data):
         node.link = LLNode(data, node.link)
-    
-    def remove_after(self, node, data):
+
+    def remove_after(self, node):
         if node.link:
             node.link = node.link.link
         else:
             raise IndexError("Nothing to remove!")
-    
+
     def concatenate(self, ll2):
         ll2 = ll2.copy()
         tail = self.get_tail()

@@ -51,7 +51,7 @@ class TailedList:
         if node.link.link is None:
             self.tail = node.link
 
-    def remove_after(self, node, data):
+    def remove_after(self, node):
         if node.link:
             node.link = node.link.link
             if node.link is None:
