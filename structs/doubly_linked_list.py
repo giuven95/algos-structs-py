@@ -12,7 +12,7 @@ class DoublyLinkedList:
         self.length = 0
 
     def is_empty(self):
-        return self.head is None
+        return self.length == 0
 
     def traverse(self, func):
         cursor = self.head
@@ -57,12 +57,12 @@ class DoublyLinkedList:
 
     def insert_before(self, node, data):
         node.prev = DLLNode(data, node.prev, node)
-        self.__update(node.prev)
+        self.__connect(node.prev.prev, node.prev)
         self.length += 1
 
     def insert_after(self, node, data):
         node.link = DLLNode(data, node, node.link)
-        self.__update(node.link)
+        self.__connect(node.link, node.link.link)
         self.length += 1
 
     def remove_before(self, node):
@@ -136,3 +136,11 @@ if __name__ == "__main__":
     ll.concatenate(ll)
     ll.prepend("samba")
     ll.print_data()  # samba b 7.77 b 7.77 b 7.77 b 7.77
+    print("##########")
+
+    node = ll.get_at(3)
+    for i in range(3):
+        ll.remove_before(node)
+    ll.insert_before(node, "AAA")
+    ll.insert_after(node, "CCC")
+    ll.print_data()  # AAA b CCC 7.77 b 7.77 b 7.77
