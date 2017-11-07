@@ -1,30 +1,28 @@
 from numpy import zeros
 
 
-def counting_sort(l, start=0, end=None):
-    if end is None:
-        end = len(l)
-    if end < start + 2:
+def counting_sort(l):
+    if len(l) < 2:
         return
 
     min_value = l[0]
-    max_value = l[1]
+    max_value = l[0]
     for key in l:
         if key > max_value:
             max_value = key
-        if key < min_value:
+        elif key < min_value:
             min_value = key
 
     size = max_value - min_value + 1
     count = zeros(size, dtype=int)
     for key in l:
-        i = key - min_value
-        count[i] += 1
+        j = key - min_value
+        count[j] += 1
 
     tot = 0
-    for i in range(size):
-        old = count[i]
-        count[i] = tot
+    for j in range(size):
+        old = count[j]
+        count[j] = tot
         tot += old
 
     old_list = l[:]
