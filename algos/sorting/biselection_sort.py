@@ -22,7 +22,7 @@ def select_extremes(l, start, end):
     for j in range(start + 1, end):
         if l[j] < l[imin]:
             imin = j
-        elif l[j] > l[imax]:
+        elif l[j] >= l[imax]:  # not >, >= ---> keeps it a stable sort
             imax = j
     return (imin, imax)
 
