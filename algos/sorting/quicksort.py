@@ -6,10 +6,10 @@ from quickpartition import hoare_partition
 def quicksort(l, start=0, end=None):
     if end is None:
         end = len(l)
-    
+
     if end < start + 2:
         return
-            
+
     bls = hoare_partition(l, start, end)
     quicksort(l, start, bls)
     quicksort(l, bls + 1, end)

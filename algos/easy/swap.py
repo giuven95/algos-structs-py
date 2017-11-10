@@ -5,5 +5,5 @@ def swap(l, i, j):
     l[i] = l[j]
     l[j] = t
 
-# an easier way to do this in python would be
+# an easier way to do this in python would be 
 # l[i], l[j] = l[j], l[i]

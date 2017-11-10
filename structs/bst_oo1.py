@@ -3,7 +3,7 @@ class BinarySearchTree:
         self.root = BSTNode(keys[0], values[0])
         for (key, value) in zip(keys[1:], values[1:]):
             self.put(key, value)
-
+            
     def get(self, key):
         if self.root is None:
             return None
