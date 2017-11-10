@@ -4,14 +4,6 @@ class BinarySearchTree:
         for (key, value) in zip(keys[1:], values[1:]):
             self.put(key, value)
 
-    def has_key(self, key):
-        if self.root is None:  # check for empty tree
-            return False
-        elif self.root.get(key) is None:
-            return False
-        else:
-            return True
-
     def get(self, key):
         if self.root is None:
             return None
