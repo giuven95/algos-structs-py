@@ -6,14 +6,14 @@ def kmp_ss(pattern, text):
         jumps = [0]
 
         for i in range(1, len(pattern)):
-            j = next_to_check(text, jumps, i, jumps[i - 1])
+            j = next_to_check(pattern, jumps, i, jumps[i - 1])
             jumps.append(j)
         return jumps
         
-    def next_to_check(text, jumps, i, j):
-        while j > 0 and text[i] != pattern[j]:
+    def next_to_check(s, jumps, i, j):
+        while j > 0 and s[i] != pattern[j]:
             j = jumps[j - 1]
-        if text[i] == pattern[j]:
+        if s[i] == pattern[j]:
             j += 1
         return j
 
@@ -22,5 +22,5 @@ def kmp_ss(pattern, text):
     for i in range(len(text)):
         j = next_to_check(text, jumps, i, j)
         if j == len(pattern): 
-            return i - j + 1
+            return i - j + 1  # start
     return None
