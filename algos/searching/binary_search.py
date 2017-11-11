@@ -1,7 +1,7 @@
 def binary_search(l, key, start=0, end=None):
     if end is None:
         end = len(l)
-    elif end <= start:
+    if end <= start:
         return None
 
     mid = (start + end) // 2
