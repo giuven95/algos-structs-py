@@ -5,11 +5,11 @@ from binary_search import binary_search
 def adaptive_search(l, key, start=0, end=None, maxdepth=None):
     if end is None:
         end = len(l)
-    elif end <= start:
+    if end <= start:
         return None
     
     if maxdepth is None:    
-        maxdepth = math.log(end - start)
+        maxdepth = 2 * math.log(end - start)
     adasearch_helper(l, start, end, maxdepth)
 
 

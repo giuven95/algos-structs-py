@@ -8,7 +8,7 @@ def adaptive_sort(l, start=0, end=None, maxdepth=None):
     if end is None:
         end = len(l)
     if maxdepth is None:
-        maxdepth = math.log(end - start)
+        maxdepth = 2 * math.log(end - start)
     adasort_helper(l, start, end, maxdepth)
 
 

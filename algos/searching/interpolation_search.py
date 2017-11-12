@@ -1,7 +1,7 @@
 def interpolation_search(l, key, start=0, end=None):
     if end is None:
         end = len(l)
-    elif end <= start:
+    if end <= start:
         return None
 
     ratio = (end - start) / (l[end - 1] - l[start])

@@ -1,8 +1,5 @@
-def linear_search(l, key, start=0, end=None):
-    if end is None:
-        end = len(l)
-
-    for i in range(start, end):
+def linear_search(l, key):
+    for i in range(len(l)):
         if l[i] == key:
             return i
     return None
