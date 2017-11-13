@@ -1,7 +1,7 @@
 import math
 from quickpartition import hoare_partition
 from heapsort import heapsort
-from insertionsort import insertionsort
+from insertion_sort import insertion_sort
 
 
 def adaptive_sort(l, start=0, end=None, maxdepth=None):
@@ -14,7 +14,7 @@ def adaptive_sort(l, start=0, end=None, maxdepth=None):
 
 def adasort_helper(l, start, end, depth):
     if end <= start + 16:
-        insertionsort(l, start, end)
+        insertion_sort(l, start, end)
     elif depth == 0:
         heapsort(l, start, end)
     else:

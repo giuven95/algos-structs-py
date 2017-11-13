@@ -1,6 +1,6 @@
 from threading import Thread
 from time import sleep
-from insertionsort import insertionsort
+from insertion_sort import insertion_sort
 
 
 def sleep_sort(l):
@@ -23,7 +23,7 @@ def sleep_sort(l):
     for t in threads:
         t.join()
 
-    insertionsort(new_list)
+    insertion_sort(new_list)
     l[:] = new_list
 
 
