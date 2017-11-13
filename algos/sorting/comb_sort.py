@@ -7,7 +7,7 @@ def comb_sort(l):
 
     # notice: if the gap is greater than 1, we have to keep going
     # otherwise it depends on the "over" flag
-    while gap > 1 and not over:
+    while gap > 1 or not over:
         gap = max(1, int(gap / SHRINK_FACTOR))
         over = comb_sort_internal(l, gap)
 
