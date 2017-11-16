@@ -1,34 +1,55 @@
-class HanoiTower:
-    def __init__(self, name, ndisks):
+class Tower:
+    def __init__(self, name, disks=None):
         self.name = name
-        self.ndisks = ndisks
+        if disks is None:
+            disks = []
+        self.disks = disks
 
     def move_one(self, dest):
-        self.ndisks -= 1
-        dest.ndisks += 1
+        if len(dest.disks) == 0 or self.disks[-1] < dest.disks[-1]:
+            disk = self.disks[-1]
+            self.disks = self.disks[:-1]
+            dest.disks.append(disk)
+        else:
+            raise Exception("Must stack disk above bigger disk")
 
-    def move_many(self, help, dest, num):
+    def move_many(self, aux, dest, num):
         if num == 1:
             self.move_one(dest)
         else:
-            self.move_many(dest, help, num - 1)
+            self.move_many(dest, aux, num - 1)
             self.move_one(dest)
-            help.move_many(self, dest, num - 1)
+            aux.move_many(self, dest, num - 1)
 
-    def move_all(self, help, dest):
-        self.move_many(help, dest, self.ndisks)
+    def move_all(self, aux, dest):
+        self.move_many(aux, dest, len(self.disks))
 
     def __repr__(self):
-        s = "({}, {})".format(self.name, self.ndisks)
+        s = "({}, {})".format(self.name, self.disks)
         return s
 
 
+class Game:
+    def __init__(self, num_disks):
+        disks = list(range(num_disks, 0, -1))
+        a = Tower("A", disks)
+        b = Tower("B")
+        c = Tower("C")
+        self.towers = (a, b, c)
+
+    def run(self):
+        (a, b, c) = self.towers
+        a.move_all(b, c)
+
+    def display(self):
+        print("\n")
+        for t in self.towers:
+            print(t)
+
+
 if __name__ == "__main__":
-    a = HanoiTower("A", 5)
-    b = HanoiTower("B", 0)
-    c = HanoiTower("C", 0)
+    game = Game(5)
+    game.display()
 
-    a.move_all(b, c)
-
-    for tower in (a, b, c):
-        print(tower)
+    game.run()
+    game.display()
